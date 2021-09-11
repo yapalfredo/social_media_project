@@ -4,7 +4,7 @@
   "description": "My second nodejs practice app",
   "main": "index.js",
   "scripts": {
-    "watch":"nodemon app",
+    "watch": "nodemon app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,6 +21,7 @@
   "dependencies": {
     "ejs": "^3.1.6",
     "express": "^4.17.1",
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.12",
+    "validator": "^13.6.0"
   }
 }
