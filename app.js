@@ -8,6 +8,9 @@ const router = require('./router')
 //So that it can be assessed from req.body
 app.use(express.urlencoded({extended: false}))
 app.use(express.json())
+
+//This will make public folder accessible without typing the folder name
+//for paths
 app.use(express.static('public'))
 
 //---------TEMPLATE ENGINE------------------

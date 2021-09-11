@@ -1,3 +1,7 @@
+//import the User model
+const User = require('../models/User')
+
+
 exports.login = function(){
     
 }
@@ -7,7 +11,8 @@ exports.logout = function(){
 }
 
 exports.signup = function(req, res){
-   console.log("Thanks ")
+   let user = new User(req.body)
+   user.signup()
 }
 
 exports.home = function(req, res){
