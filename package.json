@@ -1,0 +1,26 @@
+{
+  "name": "nodejspractice_complexapp",
+  "version": "1.0.0",
+  "description": "My second nodejs practice app",
+  "main": "index.js",
+  "scripts": {
+    "watch":"nodemon app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yapalfredo/nodejspractice_complexapp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yapalfredo/nodejspractice_complexapp/issues"
+  },
+  "homepage": "https://github.com/yapalfredo/nodejspractice_complexapp#readme",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.12"
+  }
+}
