@@ -14,6 +14,25 @@ let User = function(data){
    this.errors = []
 }
 
+User.prototype.cleanUp = function(){
+    if (typeof(this.data.username ) != "string") {
+        this.data.username = ""
+    }
+    if (typeof(this.data.email ) != "string") {
+        this.data.email = ""
+    }
+    if (typeof(this.data.password ) != "string") {
+        this.data.password = ""
+    }
+
+    // Get rid of any other fake properties
+    this.data = {
+        username: this.data.username.trim().toLowerCase(),
+        email: this.data.email.trim().toLowerCase(),
+        password: this.data.password
+    }
+}
+
 // User input validation logic
 User.prototype.validate = function(){
     if (this.data.username == "" ) {
@@ -45,10 +64,12 @@ User.prototype.validate = function(){
 //prototype makes sure that this function() this not get
 //duplicated everytime a new User() model object is called.
 User.prototype.signup = function(){
-    //1st step - validate user input
+    //1st step - cleanUp and validate user input
+    this.cleanUp()
     this.validate()
     //2nd step - only if there are no input errors
     //then save the user input to the database
+    
 }
 
 module.exports = User
