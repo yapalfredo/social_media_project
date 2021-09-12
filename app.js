@@ -24,4 +24,6 @@ app.set('view engine', 'ejs')
 //HomePage
 app.use('/', router)
 
-app.listen(3000)
+//app.listen(3000)
+//export the app instead of listening on this file, so that it can't be access (db.js)
+module.exports = app

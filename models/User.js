@@ -1,5 +1,9 @@
 //model is where we enforce the business logic
 
+//import the db.js
+//selecting the collection 'users' from mongodb
+const usersCollection = require('../db').collection("users")
+
 //npm install validator
 //this will make it easier to validate User input (e.g. email address)
 const validator = require("validator")
@@ -67,9 +71,12 @@ User.prototype.signup = function(){
     //1st step - cleanUp and validate user input
     this.cleanUp()
     this.validate()
+
     //2nd step - only if there are no input errors
     //then save the user input to the database
-    
+    if (!this.errors.length) {
+        usersCollection.insertOne(this.data)
+    }
 }
 
 module.exports = User
