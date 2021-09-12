@@ -2,10 +2,15 @@
 //npm install mongodb
 const mongodb = require("mongodb")
 
-//connection string from MongoDB dashboard
-let connectionString = "mongodb+srv://todoappuser:todoappuser@cluster0.t01yh.mongodb.net/freedomapp?retryWrites=true&w=majority";
-mongodb.MongoClient.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, client){
+//implemented environment variables
+//npm install dotenv
+const dotenv = require("dotenv")
+dotenv.config()
+
+//connection to MongoDB.
+//with env
+mongodb.MongoClient.connect(process.env.CONNECTIONSTRING, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, client){
    module.exports = client.db()
    const app = require("./app")
-   app.listen(3000)
+   app.listen(process.env.PORT)
 })
