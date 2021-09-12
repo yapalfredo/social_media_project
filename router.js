@@ -12,5 +12,7 @@ router.get('/', userController.home)
 
 router.post('/SignUp', userController.signup)
 
+router.post('/login', userController.login)
+
 //will make this js file available to be called
 module.exports = router

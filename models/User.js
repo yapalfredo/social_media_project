@@ -79,4 +79,20 @@ User.prototype.signup = function(){
     }
 }
 
+//User Login Model
+User.prototype.login = function(callback){
+    this.cleanUp()
+
+    //CRUD (READ PART)
+    usersCollection.findOne({username: this.data.username}, (err, requestedUser) => {
+        //if there's a matching username
+        //and if the password is correct
+        if (requestedUser && requestedUser.password == this.data.password){
+            callback(true)
+        } else{
+            callback(false)
+        }
+    })
+}
+
 module.exports = User

@@ -1,15 +1,6 @@
 //import the User model
 const User = require('../models/User')
 
-
-exports.login = function(){
-    
-}
-
-exports.logout = function(){
-    
-}
-
 exports.signup = function(req, res){
     //creates a new User object, which then passess the req object
     //as an argument
@@ -23,6 +14,20 @@ exports.signup = function(req, res){
         res.send("No errors found")
    }
 }
+
+//this controls the login
+exports.login = function(req, res){
+     let user = new User(req.body)
+     
+     //This will have a callback function argument
+     user.login(function(result){
+          res.send(result)
+     })
+ }
+ 
+ exports.logout = function(){
+     
+ }
 
 exports.home = function(req, res){
     res.render('home-guest')
