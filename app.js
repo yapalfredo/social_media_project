@@ -1,5 +1,18 @@
+//npm install express
 const express = require('express')
+//npm install express-session
+const session = require('express-session')
 const app = express()
+
+//settings to enable sessions
+let sessionOptions = session({
+    secret: "JS is weird",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {maxAge: 1000 * 60 * 60 * 24, httpOnly: true}
+})
+//tell express to use sessions
+app.use(sessionOptions)
 
 //Router should only have list of routes
 const router = require('./router')

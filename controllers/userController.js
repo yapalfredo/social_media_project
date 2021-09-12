@@ -21,6 +21,7 @@ exports.login = function(req, res){
 
      //Normall, for using "Promise", you need to use ".then()" and ".catch()"
      user.login().then(function(result){
+          req.session.user = {}
           res.send(result)
      }).catch(function(err){
           res.send(err)
@@ -32,5 +33,10 @@ exports.login = function(req, res){
  }
 
 exports.home = function(req, res){
-    res.render('home-guest')
+     //this checks if session is present
+    if (req.session.user) {
+          res.send("Welcome to - logged in")
+    } else {
+          res.render('home-guest')
+    }
 }
