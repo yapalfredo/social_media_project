@@ -80,19 +80,27 @@ User.prototype.signup = function(){
 }
 
 //User Login Model
-User.prototype.login = function(callback){
+User.prototype.login = function(){
+    //Promise is the lates standard for asynchronus processing
+
+    //arrow function doesn't manipulate the 'this' keyword
+   return new Promise((resolve, reject) => {
     this.cleanUp()
 
-    //CRUD (READ PART)
-    usersCollection.findOne({username: this.data.username}, (err, requestedUser) => {
-        //if there's a matching username
+    //CRUD (READ PART)  
+    //Converted to PROMISE
+    usersCollection.findOne({username: this.data.username}).then((requestedUser) => {
+         //if there's a matching username
         //and if the password is correct
         if (requestedUser && requestedUser.password == this.data.password){
-            callback(true)
+            resolve(true)
         } else{
-            callback(false)
+            reject(false)
         }
+    }).catch(function(){
+        reject(false)
     })
+   })
 }
 
 module.exports = User

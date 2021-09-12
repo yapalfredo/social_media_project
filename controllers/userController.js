@@ -18,10 +18,12 @@ exports.signup = function(req, res){
 //this controls the login
 exports.login = function(req, res){
      let user = new User(req.body)
-     
-     //This will have a callback function argument
-     user.login(function(result){
+
+     //For using "Promise", you need to use ".then()" and ".catch()"
+     user.login().then(function(result){
           res.send(result)
+     }).catch(function(err){
+          res.send(err)
      })
  }
  
