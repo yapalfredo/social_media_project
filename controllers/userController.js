@@ -15,11 +15,11 @@ exports.signup = function(req, res){
    }
 }
 
-//this controls the login
+//this controls the Login
 exports.login = function(req, res){
      let user = new User(req.body)
 
-     //For using "Promise", you need to use ".then()" and ".catch()"
+     //Normall, for using "Promise", you need to use ".then()" and ".catch()"
      user.login().then(function(result){
           res.send(result)
      }).catch(function(err){
