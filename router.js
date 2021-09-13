@@ -10,9 +10,11 @@ const userController = require('./controllers/userController')
 //Using a controller to make it cleaner
 router.get('/', userController.home)
 
-router.post('/SignUp', userController.signup)
+router.post('/signUp', userController.signup)
 
 router.post('/login', userController.login)
+
+router.post('/logout', userController.logout)
 
 //will make this js file available to be called
 module.exports = router

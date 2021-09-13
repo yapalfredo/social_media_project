@@ -1,4 +1,6 @@
 //import the User model
+const { resolveInclude } = require('ejs')
+const { render } = require('../app')
 const User = require('../models/User')
 
 exports.signup = function(req, res){
@@ -23,14 +25,22 @@ exports.login = function(req, res){
      user.login().then(function(result){
           //this will create the session
           req.session.user = {favColor: "blue", username: user.data.username}
-          res.send(result)
+          //this will triggered manually; then call back function when done saving
+          //and redirect
+          req.session.save(function(){
+               res.redirect('/')
+          })
      }).catch(function(err){
           res.send(err)
      })
  }
  
- exports.logout = function(){
-     
+ exports.logout = function(req, res){
+      //will delete the session
+      //then redirect to home
+     req.session.destroy(function(){
+          res.redirect('/')
+     })
  }
 
 exports.home = function(req, res){
