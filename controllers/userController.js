@@ -12,7 +12,7 @@ exports.signup = function (req, res) {
   user
     .signup()
     .then(() => {
-      req.session.user = { username: user.data.username }
+      req.session.user = { username: user.data.username, avatar: user.avatar }
       req.session.save(function () {
         res.redirect("/")
       })
@@ -34,9 +34,9 @@ exports.login = function (req, res) {
   //Normall, for using "Promise", you need to use ".then()" and ".catch()"
   user
     .login()
-    .then(function (result) {
+    .then(function () {
       //this will create the session
-      req.session.user = { favColor: "blue", username: user.data.username }
+      req.session.user = { avatar: user.avatar, username: user.data.username }
       //this will trigger manually to save the session in db, then call back function when done saving
       //and redirect to appropriate page
       req.session.save(function () {
@@ -68,7 +68,8 @@ exports.home = function (req, res) {
     //first argument is the name of the template.
     //second argument is the object you want to pass when logged in
     //the username will be accessible from the template 'home-dashboard'
-    res.render("home-dashboard", { username: req.session.user.username })
+    //the avatar will be accessible too
+    res.render("home-dashboard", { username: req.session.user.username, avatar: req.session.user.avatar })
   } else {
     //this will make the error message available (from home-guest template) using flash, then deletes it after
     //getting called.
