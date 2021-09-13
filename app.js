@@ -1,3 +1,5 @@
+//This is where we enable new features within our express application
+
 //npm install express
 const express = require('express')
 //npm install express-session
@@ -6,7 +8,13 @@ const session = require('express-session')
 //save sessions to MongoDB instead of locally
 //in the browser)
 const MongoStore = require('connect-mongo')
+//npm install connect-flash
+//implements a red/error box (flash message)
+const flash = require('connect-flash')
 const app = express()
+
+//Router should only have list of routes
+const router = require('./router')
 
 //settings to enable sessions
 let sessionOptions = session({
@@ -17,11 +25,12 @@ let sessionOptions = session({
     saveUninitialized: false,
     cookie: {maxAge: 1000 * 60 * 60 * 24, httpOnly: true}
 })
+
 //tell express to use sessions
 app.use(sessionOptions)
 
-//Router should only have list of routes
-const router = require('./router')
+//tell express to use flash
+app.use(flash())
 
 //This tells express to add submitted data, from html form, to the 'req' object,
 //So that it can be assessed from req.body

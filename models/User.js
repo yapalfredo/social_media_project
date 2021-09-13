@@ -100,13 +100,15 @@ User.prototype.login = function(){
     usersCollection.findOne({username: this.data.username}).then((requestedUser) => {
          //if there's a matching username
         //and if the password is correct
+
+        //resolve and reject will send back to userController.js
         if (requestedUser && bcryptjs.compareSync(this.data.password, requestedUser.password)){
             resolve(true)
         } else{
-            reject(false)
+            reject("Incorrect Username / Password !")
         }
     }).catch(function(){
-        reject(false)
+        reject("There was an error during login ")
     })
    })
 }

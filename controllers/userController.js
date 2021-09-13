@@ -1,6 +1,7 @@
 //import the User model
-const { resolveInclude } = require('ejs')
-const { render } = require('../app')
+
+// const { resolveInclude } = require('ejs')
+// const { render } = require('../app')
 const User = require('../models/User')
 
 exports.signup = function(req, res){
@@ -25,13 +26,19 @@ exports.login = function(req, res){
      user.login().then(function(result){
           //this will create the session
           req.session.user = {favColor: "blue", username: user.data.username}
-          //this will triggered manually; then call back function when done saving
-          //and redirect
+          //this will trigger manually to save the session in db, then call back function when done saving
+          //and redirect to appropriate page
           req.session.save(function(){
                res.redirect('/')
           })
-     }).catch(function(err){
-          res.send(err)
+     }).catch(function(e){
+          //req.session.flash.errors = e
+          req.flash('errors', e)
+          //manually tells session to save the data to db
+          req.session.save(function(){
+              // res.redirect('/')
+              res.redirect('/')
+          })
      })
  }
  
@@ -51,6 +58,8 @@ exports.home = function(req, res){
          //the username will be accessible from the template 'home-dashboard'
           res.render('home-dashboard', {username: req.session.user.username})
     } else {
-          res.render('home-guest')
+         //this will make the error message available (from home-guest template) using flash, then deletes it after
+         //getting called. 
+          res.render('home-guest', {errors: req.flash('errors')})
     }
 }
