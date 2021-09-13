@@ -2,11 +2,17 @@
 const express = require('express')
 //npm install express-session
 const session = require('express-session')
+//npm install connect-mongo (this allows you
+//save sessions to MongoDB instead of locally
+//in the browser)
+const MongoStore = require('connect-mongo')
 const app = express()
 
 //settings to enable sessions
 let sessionOptions = session({
     secret: "JS is weird",
+    //set the store location to MongoDB
+    store: new MongoStore({client: require('./db')}),
     resave: false,
     saveUninitialized: false,
     cookie: {maxAge: 1000 * 60 * 60 * 24, httpOnly: true}

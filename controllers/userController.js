@@ -21,7 +21,8 @@ exports.login = function(req, res){
 
      //Normall, for using "Promise", you need to use ".then()" and ".catch()"
      user.login().then(function(result){
-          req.session.user = {}
+          //this will create the session
+          req.session.user = {favColor: "blue", username: user.data.username}
           res.send(result)
      }).catch(function(err){
           res.send(err)
@@ -35,7 +36,10 @@ exports.login = function(req, res){
 exports.home = function(req, res){
      //this checks if session is present
     if (req.session.user) {
-          res.send("Welcome to - logged in")
+         //first argument is the name of the template.
+         //second argument is the object you want to pass when logged in
+         //the username will be accessible from the template 'home-dashboard'
+          res.render('home-dashboard', {username: req.session.user.username})
     } else {
           res.render('home-guest')
     }

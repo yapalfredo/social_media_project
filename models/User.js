@@ -6,7 +6,8 @@ const bcryptjs = require("bcryptjs")
 
 //import the db.js
 //selecting the collection 'users' from mongodb
-const usersCollection = require('../db').collection("users")
+//the '.db()' will initialize a database instance
+const usersCollection = require('../db').db().collection("users")
 
 //npm install validator
 //this will make it easier to validate User input (e.g. email address)
@@ -23,6 +24,8 @@ let User = function(data){
 }
 
 User.prototype.cleanUp = function(){
+    // Get rid of any other fake properties
+    
     if (typeof(this.data.username ) != "string") {
         this.data.username = ""
     }
@@ -32,8 +35,6 @@ User.prototype.cleanUp = function(){
     if (typeof(this.data.password ) != "string") {
         this.data.password = ""
     }
-
-    // Get rid of any other fake properties
     this.data = {
         username: this.data.username.trim().toLowerCase(),
         email: this.data.email.trim().toLowerCase(),
