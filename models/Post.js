@@ -54,5 +54,23 @@ Post.prototype.createPost = function(){
     })
 }
 
+Post.findSingleById = function(id){
+    return new Promise(async function (resolve, reject) {
+        //checks if it's not a simple string of text or
+        //if it's not a valid MongoDb id
+        if (typeof(id) != "string" || !ObjectID.isValid(id)) {
+            reject()
+            return
+        } else {
+            let post = await postsCollection.findOne({_id: new ObjectID(id)})
+            if (post) {
+                resolve(post)
+            } else {
+                reject()
+            }
+        }
+    })
+}
+
 //this will make it available for controller
 module.exports = Post
