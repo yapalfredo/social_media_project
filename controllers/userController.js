@@ -69,7 +69,10 @@ exports.home = function (req, res) {
     //second argument is the object you want to pass when logged in
     //the username will be accessible from the template 'home-dashboard'
     //the avatar will be accessible too
-    res.render("home-dashboard", { username: req.session.user.username, avatar: req.session.user.avatar })
+    //res.render("home-dashboard", { username: req.session.user.username, avatar: req.session.user.avatar })
+
+    //No need of 2nd argument, since app res.locals is already implemented in app.js
+    res.render("home-dashboard")
   } else {
     //this will make the error message available (from home-guest template) using flash, then deletes it after
     //getting called.

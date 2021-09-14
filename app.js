@@ -13,8 +13,6 @@ const MongoStore = require('connect-mongo')
 const flash = require('connect-flash')
 const app = express()
 
-//Router should only have list of routes
-const router = require('./router')
 
 //settings to enable sessions
 let sessionOptions = session({
@@ -31,6 +29,16 @@ app.use(sessionOptions)
 
 //tell express to use flash
 app.use(flash())
+
+//we tell express to run this function for every request
+//this will be available to all ejs templates
+app.use(function(req, res, next){
+    res.locals.user = req.session.user
+    next()
+})
+
+//Router should only have list of routes
+const router = require('./router')
 
 //This tells express to add submitted data, from html form, to the 'req' object,
 //So that it can be assessed from req.body
