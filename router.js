@@ -21,6 +21,7 @@ router.post('/logout', userController.logout)
 //userController.isLoggedIn function prevents unauthenticated user from trying to access protected page
 router.get('/create-post', userController.isLoggedIn, postController.viewCreateScreen)
 router.post('/create-post',userController.isLoggedIn, postController.createPost)
+router.get('/post/:id', postController.viewSingle)
 
 //will make this js file available to be called
 module.exports = router

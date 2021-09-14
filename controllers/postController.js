@@ -16,3 +16,7 @@ exports.createPost = function(req, res){
         res.send(err)
     })
 }
+
+exports.viewSingle = function(req, res){
+    res.render('single-post-screen')
+}
