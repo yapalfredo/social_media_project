@@ -12,7 +12,7 @@ exports.signup = function (req, res) {
   user
     .signup()
     .then(() => {
-      req.session.user = { username: user.data.username, avatar: user.avatar }
+      req.session.user = { username: user.data.username, avatar: user.avatar, _id: user.data._id }
       req.session.save(function () {
         res.redirect("/")
       })
@@ -36,7 +36,8 @@ exports.login = function (req, res) {
     .login()
     .then(function () {
       //this will create the session
-      req.session.user = { avatar: user.avatar, username: user.data.username }
+      //id is need to capture the user and save its id when new post is created under that account
+      req.session.user = { avatar: user.avatar, username: user.data.username, _id: user.data._id }
       //this will trigger manually to save the session in db, then call back function when done saving
       //and redirect to appropriate page
       req.session.save(function () {
