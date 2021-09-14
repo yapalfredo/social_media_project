@@ -80,3 +80,18 @@ exports.home = function (req, res) {
     })
   }
 }
+
+//This check if a visitor is logged in.
+//This is required on some pages that require authentication.
+//It restricts unauthenticated people from viewing secured pages
+exports.isLoggedIn = function(req, res, next){
+  //req.session.user is only created when a user is logged in
+  if (req.session.user) {
+    next()
+  } else {
+    req.flash('errors', "You must be logged in to view the page.")
+    req.session.save(function(){
+      res.redirect('/')
+    })
+  }
+}
