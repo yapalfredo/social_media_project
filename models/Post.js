@@ -62,15 +62,30 @@ Post.findSingleById = function(id){
             reject()
             return
         } else {
-            let post = await postsCollection.findOne({_id: new ObjectID(id)})
-            if (post) {
-                resolve(post)
+            //aggregate lets us run multiple operations
+            let posts = await postsCollection.aggregate([
+                {$match: {_id: new ObjectID(id)}},
+                {$lookup: {from: "users", localField: "author", foreignField: "_id", as: "authorDocument"}},
+                //This will only project the data you only wish to be displayed (1 means true; 0 means false)
+                {$project: {
+                    title: 1,
+                    body: 1,
+                    createdDate: 1,
+                    author: {$arrayElemAt: ["$authorDocument", 0]}
+                }}
+            ]).toArray()
+            if (posts.length) {
+                //returns only the first item
+                console.log(posts[0])
+                resolve(posts[0])
             } else {
                 reject()
             }
         }
     })
 }
+
+
 
 //this will make it available for controller
 module.exports = Post
