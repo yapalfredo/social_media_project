@@ -1,6 +1,8 @@
 const postsCollection = require('../db').db().collection('posts')
 //Will treat any string as MongoDB ObjectID type
 const ObjectID = require('mongodb').ObjectId
+//We need this to pull Gravatar link
+const User = require('./User')
 
 let Post = function(data, userID){
     this.data = data
@@ -74,6 +76,16 @@ Post.findSingleById = function(id){
                     author: {$arrayElemAt: ["$authorDocument", 0]}
                 }}
             ]).toArray()
+
+            //Clean up author property for each post object
+            posts = posts.map(function(post){
+                post.author = {
+                    username: post.author.username,
+                    avatar: new User(post.author, true).avatar
+                }
+                return post
+            })
+
             if (posts.length) {
                 //returns only the first item
                 console.log(posts[0])

@@ -18,13 +18,18 @@ const validator = require("validator")
 const md5 = require("md5")
 
 //Constructor
-let User = function (data) {
+//If the second argument is set to true, it will call the getAvatar function
+//If it's false or left blank, then only the data will be called
+let User = function (data, getAvatar) {
   // "this" is mandatory.
   // that way everytime a new constructor is called,
   // the appropriate object (in this case User) will be
   // created
   this.data = data
   this.errors = []
+
+  if (getAvatar == undefined){ getAvatar = false }
+  if (getAvatar) {this.getAvatar()}
 }
 
 User.prototype.cleanUp = function () {
