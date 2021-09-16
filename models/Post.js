@@ -56,6 +56,36 @@ Post.prototype.createPost = function(){
     })
 }
 
+Post.reusablePostQuery = function(uniqueOperations){
+    return new Promise(async function (resolve, reject) {
+    //checks if it's not a simple string of text or
+
+    let aggOperations = uniqueOperations.concat([
+        {$lookup: {from: "users", localField: "author", foreignField: "_id", as: "authorDocument"}},
+        //This will only project the data you only wish to be displayed (1 means true; 0 means false)
+        {$project: {
+            title: 1,
+            body: 1,
+            createdDate: 1,
+            author: {$arrayElemAt: ["$authorDocument", 0]}
+        }}
+    ])
+    
+    //aggregate lets us run multiple operations
+    let posts = await postsCollection.aggregate(aggOperations).toArray()
+
+        //Clean up author property for each post object
+        posts = posts.map(function(post){
+            post.author = {
+                username: post.author.username,
+                avatar: new User(post.author, true).avatar
+            }
+            return post
+        })
+        resolve(posts)
+    })
+}
+
 Post.findSingleById = function(id){
     return new Promise(async function (resolve, reject) {
         //checks if it's not a simple string of text or
@@ -63,41 +93,31 @@ Post.findSingleById = function(id){
         if (typeof(id) != "string" || !ObjectID.isValid(id)) {
             reject()
             return
-        } else {
+        } 
             //aggregate lets us run multiple operations
-            let posts = await postsCollection.aggregate([
-                {$match: {_id: new ObjectID(id)}},
-                {$lookup: {from: "users", localField: "author", foreignField: "_id", as: "authorDocument"}},
-                //This will only project the data you only wish to be displayed (1 means true; 0 means false)
-                {$project: {
-                    title: 1,
-                    body: 1,
-                    createdDate: 1,
-                    author: {$arrayElemAt: ["$authorDocument", 0]}
-                }}
-            ]).toArray()
+            
+        let posts = await Post.reusablePostQuery([
+            {$match: {_id: new ObjectID(id)}}
+        ])
 
-            //Clean up author property for each post object
-            posts = posts.map(function(post){
-                post.author = {
-                    username: post.author.username,
-                    avatar: new User(post.author, true).avatar
-                }
-                return post
-            })
-
-            if (posts.length) {
-                //returns only the first item
-                console.log(posts[0])
-                resolve(posts[0])
-            } else {
-                reject()
-            }
+        if (posts.length) {
+            //returns only the first item
+            //console.log(posts[0])
+            resolve(posts[0])
+        } else {
+            reject()
         }
+    
     })
 }
 
-
+Post.findByAuthorById = function(authorId){
+    return Post.reusablePostQuery([
+        {$match: {author: authorId}},
+        //1 is ascending order; -1 is descending order
+        {$sort: {createdDate: -1}}
+    ])
+}
 
 //this will make it available for controller
 module.exports = Post

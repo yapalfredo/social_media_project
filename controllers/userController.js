@@ -1,8 +1,9 @@
-//import the User model
-
 // const { resolveInclude } = require('ejs')
 // const { render } = require('../app')
+//import the User model
 const User = require("../models/User")
+//import the Post model
+const Post = require("../models/Post")
 
 exports.signup = function (req, res) {
   //creates a new User object, which then passess the req object
@@ -112,8 +113,14 @@ exports.ifUserExists = function(req, res, next){
 }
 
 exports.profilePostsScreen = function(req, res){
-  res.render('profile', {
-    profileUsername: req.profileUser.username,
-    profileAvatar: req.profileUser.avatar
+  // ask our post model for posts by a certain author id
+  Post.findByAuthorById(req.profileUser._id).then(function(posts){
+    res.render('profile', {
+      posts: posts,
+      profileUsername: req.profileUser.username,
+      profileAvatar: req.profileUser.avatar
+    })
+  }).catch(function(){
+    res.render("404")
   })
 }
