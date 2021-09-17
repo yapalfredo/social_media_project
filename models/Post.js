@@ -3,6 +3,9 @@ const postsCollection = require('../db').db().collection('posts')
 const ObjectID = require('mongodb').ObjectId
 //We need this to pull Gravatar link
 const User = require('./User')
+//npm install sanitize-html
+//this will make sure that all inserted characters in post are safe
+const sanitizeHTML = require('sanitize-html')
 
 let Post = function(data, userID, requestedPostId){
     this.data = data
@@ -21,8 +24,8 @@ Post.prototype.cleanUP = function(){
 
     //Get rid of bogus properties
     this.data = {
-        title: this.data.title.trim(),
-        body: this.data.body.trim(),
+        title: sanitizeHTML(this.data.title.trim(), {allowedTags: [], allowedAttributes: {}}),
+        body: sanitizeHTML(this.data.body.trim(), {allowedTags: [], allowedAttributes: {}}),
         createdDate: new Date(),
         author: ObjectID(this.userID)
     }

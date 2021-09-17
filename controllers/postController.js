@@ -1,5 +1,5 @@
 const Post = require('../models/Post')
-const User = require('../models/User')
+//const User = require('../models/User')
 
 
 exports.viewCreateScreen = function(req, res) {

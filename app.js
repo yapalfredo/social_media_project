@@ -11,6 +11,12 @@ const MongoStore = require('connect-mongo')
 //npm install connect-flash
 //implements a red/error box (flash message)
 const flash = require('connect-flash')
+//npm install marked
+//This will allow a safe user generated html in the post
+const markdown = require('marked')
+//npm install sanitize-html
+//this will make sure that all inserted characters in post are safe
+const sanitizeHTML = require('sanitize-html')
 const app = express()
 
 
@@ -33,6 +39,11 @@ app.use(flash())
 //we tell express to run this function for every request
 //this will be available to all ejs templates
 app.use(function(req, res, next){
+    //make our markdown function available to all ejs templates
+    res.locals.filterPostHTML = function(content){
+        return sanitizeHTML(markdown(content), {allowedTags: ['p','br','ul','ol','li','strong','bold','i', 'em', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'], allowedAttributes: {}})
+    }
+    
     //make all error and success flash messages available to all templates
     res.locals.errors = req.flash("errors")
     res.locals.success = req.flash("success")
