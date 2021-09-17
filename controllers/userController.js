@@ -79,9 +79,7 @@ exports.home = function (req, res) {
     //this will make the error message available (from home-guest template) using flash, then deletes it after
     //getting called.
 
-    res.render("home-guest", {
-      errors: req.flash("errors"),
-      signUpErrors: req.flash("signUpErrors"),
+    res.render("home-guest", {signUpErrors: req.flash("signUpErrors"),
     })
   }
 }

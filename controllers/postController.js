@@ -1,5 +1,6 @@
-const Post = require('../models/Post');
-const User = require('../models/User');
+const Post = require('../models/Post')
+const User = require('../models/User')
+
 
 exports.viewCreateScreen = function(req, res) {
     //No need of 2nd argument, since app res.locals is already implemented in app.js
@@ -44,12 +45,12 @@ exports.edit = function(req, res){
         if (status == "success") {
             //post was updated in MongoDB
             req.flash("success", "post successfully updated!")
-            red.session.save(function(){
+            req.session.save(function(){
                 res.redirect(`/post/${req.params.id}/edit`)
             })
         } else {
             post.errors.forEach(function(err){
-                req.flash("errors", error)
+                req.flash("errors", err)
             })
             req.session.save(function(){
                 res.redirect(`/post/${req.params.id}/edit`)

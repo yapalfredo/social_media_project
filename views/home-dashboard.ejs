@@ -3,6 +3,9 @@
   <!-- header ends here -->
   
   <div class="container py-md-5 container--narrow">
+
+    <%- include('includes/flash') %>
+
     <div class="text-center">
        <!---------------- username is from the session -->
       <h2>Hello <strong><%= user.username %></strong>, your feed is empty.</h2>

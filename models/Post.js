@@ -4,10 +4,11 @@ const ObjectID = require('mongodb').ObjectId
 //We need this to pull Gravatar link
 const User = require('./User')
 
-let Post = function(data, userID){
+let Post = function(data, userID, requestedPostId){
     this.data = data
     this.errors = []
     this.userID = userID
+    this.requestedPostId = requestedPostId
 }
 
 Post.prototype.cleanUP = function(){
@@ -52,6 +53,36 @@ Post.prototype.createPost = function(){
                 this.errors.push("Error: Something happened during the saving of post.")
                 reject(this.errors)
             })
+        }
+    })
+}
+
+Post.prototype.update = function(){
+    return new Promise(async (resolve, reject) => {
+        try {
+            let post = await Post.findSingleById(this.requestedPostId , this.userID)
+            if (post.isVisitorOwner) {
+                //actually update the db
+                let status = await this.actuallyUpdate()
+                resolve(status)
+            } else {
+                reject()
+            }
+        } catch {
+            reject()
+        }
+    })
+}
+
+Post.prototype.actuallyUpdate = function(){
+    return new Promise(async (resolve, reject) => {
+        this.cleanUP()
+        this.validate()
+        if (!this.errors.length){
+           await postsCollection.findOneAndUpdate({_id: new ObjectID(this.requestedPostId)}, {$set:{title: this.data.title, body: this.data.body}})
+           resolve("success")
+        } else {
+            resolve("failure")
         }
     })
 }
