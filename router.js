@@ -19,6 +19,7 @@ router.post('/logout', userController.logout)
 
 //PROFILE RELATED ROUTES
 router.get('/profile/:username', userController.ifUserExists, userController.profilePostsScreen)
+router.get('/post/:id/edit',postController.viewEditScreen)
 
 //POSTING RELATED ROUTES
 //userController.isLoggedIn function prevents unauthenticated user from trying to access protected page
