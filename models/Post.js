@@ -47,8 +47,8 @@ Post.prototype.createPost = function(){
             reject(this.errors)
         } else {
             //Save the post content to MongoDB
-            postsCollection.insertOne(this.data).then(() => {
-                resolve(this.data)
+            postsCollection.insertOne(this.data).then((info) => {
+                resolve(info.insertedId)
             }).catch(() =>{
                 this.errors.push("Error: Something happened during the saving of post.")
                 reject(this.errors)

@@ -26,8 +26,8 @@ router.get('/profile/:username', userController.ifUserExists, userController.pro
 router.get('/create-post', userController.isLoggedIn, postController.viewCreateScreen)
 router.post('/create-post',userController.isLoggedIn, postController.createPost)
 router.get('/post/:id', postController.viewSingle)
-router.get('/post/:id/edit',postController.viewEditScreen)
-router.post('/post/:id/edit',postController.edit)
+router.get('/post/:id/edit', userController.isLoggedIn, postController.viewEditScreen)
+router.post('/post/:id/edit',userController.isLoggedIn, postController.edit)
 
 //will make this js file available to be called
 module.exports = router
