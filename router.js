@@ -28,6 +28,7 @@ router.post('/create-post',userController.isLoggedIn, postController.createPost)
 router.get('/post/:id', postController.viewSingle)
 router.get('/post/:id/edit', userController.isLoggedIn, postController.viewEditScreen)
 router.post('/post/:id/edit',userController.isLoggedIn, postController.edit)
+router.post('/post/:id/delete',userController.isLoggedIn, postController.delete)
 
 //will make this js file available to be called
 module.exports = router
