@@ -113,6 +113,7 @@ Post.reusablePostQuery = function(uniqueOperations, visitorId, finalOperations =
         posts = posts.map(function(post){
             
             post.isVisitorOwner = post.authorId.equals(visitorId)
+            post.authorId = undefined
 
             post.author = {
                 username: post.author.username,
