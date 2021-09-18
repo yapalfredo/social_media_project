@@ -20,7 +20,6 @@ router.post('/logout', userController.logout)
 //PROFILE RELATED ROUTES
 router.get('/profile/:username', userController.ifUserExists, userController.profilePostsScreen)
 
-
 //POSTING RELATED ROUTES
 //userController.isLoggedIn function prevents unauthenticated user from trying to access protected page
 router.get('/create-post', userController.isLoggedIn, postController.viewCreateScreen)
@@ -29,6 +28,7 @@ router.get('/post/:id', postController.viewSingle)
 router.get('/post/:id/edit', userController.isLoggedIn, postController.viewEditScreen)
 router.post('/post/:id/edit',userController.isLoggedIn, postController.edit)
 router.post('/post/:id/delete',userController.isLoggedIn, postController.delete)
+router.post('/search', postController.search)
 
 //will make this js file available to be called
 module.exports = router

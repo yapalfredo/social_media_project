@@ -90,7 +90,7 @@ Post.prototype.actuallyUpdate = function(){
     })
 }
 
-Post.reusablePostQuery = function(uniqueOperations, visitorId){
+Post.reusablePostQuery = function(uniqueOperations, visitorId, finalOperations = []){
     return new Promise(async function (resolve, reject) {
     //checks if it's not a simple string of text or
 
@@ -104,7 +104,7 @@ Post.reusablePostQuery = function(uniqueOperations, visitorId){
             authorId: "$author",
             author: {$arrayElemAt: ["$authorDocument", 0]}
         }}
-    ])
+    ]).concat(finalOperations)
     
     //aggregate lets us run multiple operations
     let posts = await postsCollection.aggregate(aggOperations).toArray()
@@ -170,6 +170,19 @@ Post.delete = function(postIdToDelete, currentUserId){
         } catch {
             reject()
         } 
+    })
+}
+
+Post.search = function(searchTerm) {
+    return new Promise(async (resolve, reject) => {
+        if (typeof(searchTerm) == "string") {
+            let posts = await Post.reusablePostQuery([
+                {$match: {$text: {$search: searchTerm}}}                
+            ], undefined, [{$sort: {score: {$meta: "textScore"}}}])
+            resolve(posts)
+        } else {
+            reject()
+        }
     })
 }
 
