@@ -34,6 +34,7 @@ router.post('/search', postController.search)
 
 //FOLLOW RELATED ROUTES
 router.post('/addFollow/:username', userController.isLoggedIn, followController.addFollow)
+router.post('/removeFollow/:username', userController.isLoggedIn, followController.removeFollow)
 
 //will make this js file available to be called
 module.exports = router
