@@ -17,6 +17,18 @@ exports.sharedProfileData = async function(req, res, next){
 
   req.isVisitorsProfile = isVisitorsProfile
   req.isFollowing = isFollowing
+
+  // retrieve post, follower, and following count
+  let postsCountPromise = Post.countPostsByAuthor(req.profileUser._id)
+  let followersCountPromise = Follow.countFollowersById(req.profileUser._id)
+  let followingCountPromise = Follow.countFollowingById(req.profileUser._id)
+  //array destructuring
+  let [postsCount, followersCount, followingCount] = await Promise.all([postsCountPromise, followersCountPromise, followingCountPromise])
+  
+  req.postsCount = postsCount
+  req.followersCount = followersCount
+  req.followingCount = followingCount
+
   next()
 }
 
@@ -134,7 +146,8 @@ exports.profilePostsScreen = function(req, res){
       profileUsername: req.profileUser.username,
       profileAvatar: req.profileUser.avatar,
       isFollowing: req.isFollowing,
-      isVisitorsProfile: req.isVisitorsProfile
+      isVisitorsProfile: req.isVisitorsProfile,
+      counts: {postsCount: req.postsCount, followersCount: req.followersCount, followingCount: req.followingCount}
     })
   }).catch(function(){
     res.render("404")
@@ -150,7 +163,8 @@ exports.profileFollowersScreen = async function(req, res){
       profileUsername: req.profileUser.username,
       profileAvatar: req.profileUser.avatar,
       isFollowing: req.isFollowing,
-      isVisitorsProfile: req.isVisitorsProfile
+      isVisitorsProfile: req.isVisitorsProfile,
+      counts: {postsCount: req.postsCount, followersCount: req.followersCount, followingCount: req.followingCount}
     })
   }catch {
     res.render("404")
@@ -166,7 +180,8 @@ exports.profileFollowingScreen = async function(req, res){
       profileUsername: req.profileUser.username,
       profileAvatar: req.profileUser.avatar,
       isFollowing: req.isFollowing,
-      isVisitorsProfile: req.isVisitorsProfile
+      isVisitorsProfile: req.isVisitorsProfile,
+      counts: {postsCount: req.postsCount, followersCount: req.followersCount, followingCount: req.followingCount}
     })
   }catch {
     res.render("404")
