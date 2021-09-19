@@ -91,7 +91,7 @@ exports.logout = function (req, res) {
   })
 }
 
-exports.home = function (req, res) {
+exports.home = async function (req, res) {
   //this checks if session is present
   if (req.session.user) {
     //first argument is the name of the template.
@@ -101,7 +101,11 @@ exports.home = function (req, res) {
     //res.render("home-dashboard", { username: req.session.user.username, avatar: req.session.user.avatar })
 
     //No need of 2nd argument, since app res.locals is already implemented in app.js
-    res.render("home-dashboard")
+
+    //Fetch the feed of posts for logged in user
+    let posts = await Post.getFeed(req.session.user._id)
+
+    res.render("home-dashboard", {posts: posts})
   } else {
     //this will make the error message available (from home-guest template) using flash, then deletes it after
     //getting called.

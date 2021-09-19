@@ -1,3 +1,4 @@
+const followsCollection = require('../db').db().collection('follows')
 const postsCollection = require('../db').db().collection('posts')
 //Will treat any string as MongoDB ObjectID type
 const ObjectID = require('mongodb').ObjectId
@@ -192,6 +193,20 @@ Post.countPostsByAuthor = function(id) {
         let postsCount = await postsCollection.countDocuments({author: id})
         resolve(postsCount)
     })
+}
+
+Post.getFeed = async function(id){
+    // create an array of the user ids that the logged in user follows
+    let  followedUsers = await followsCollection.find({authorId: new ObjectID(id)}).toArray()
+    followedUsers = followedUsers.map(function(followDoc){
+        return followDoc.followedId
+    })
+
+    // look for posts where the author is in the above array of followed users
+    return Post.reusablePostQuery([
+        {$match: {author: {$in: followedUsers}}},
+        {$sort: {createdDate: -1}}
+    ])
 }
 
 //this will make it available for controller
