@@ -6,6 +6,8 @@ const router = express.Router()
 const userController = require('./controllers/userController')
 //Import the Controler for posting
 const postController = require('./controllers/postController')
+//Import the Controler for follow
+const followController = require('./controllers/followController')
 
 //This is for HomePage
 //Mini express app  ( replacement for app.get())
@@ -23,12 +25,15 @@ router.get('/profile/:username', userController.ifUserExists, userController.pro
 //POSTING RELATED ROUTES
 //userController.isLoggedIn function prevents unauthenticated user from trying to access protected page
 router.get('/create-post', userController.isLoggedIn, postController.viewCreateScreen)
-router.post('/create-post',userController.isLoggedIn, postController.createPost)
+router.post('/create-post', userController.isLoggedIn, postController.createPost)
 router.get('/post/:id', postController.viewSingle)
 router.get('/post/:id/edit', userController.isLoggedIn, postController.viewEditScreen)
-router.post('/post/:id/edit',userController.isLoggedIn, postController.edit)
-router.post('/post/:id/delete',userController.isLoggedIn, postController.delete)
+router.post('/post/:id/edit', userController.isLoggedIn, postController.edit)
+router.post('/post/:id/delete', userController.isLoggedIn, postController.delete)
 router.post('/search', postController.search)
+
+//FOLLOW RELATED ROUTES
+router.post('/addFollow/:username', userController.isLoggedIn, followController.addFollow)
 
 //will make this js file available to be called
 module.exports = router
