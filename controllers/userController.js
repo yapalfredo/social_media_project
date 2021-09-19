@@ -4,6 +4,18 @@
 const User = require("../models/User")
 //import the Post model
 const Post = require("../models/Post")
+//import the Follow model
+const Follow = require("../models/Follow")
+
+exports.sharedProfileData = async function(req, res, next){
+  let isFollowing = false
+  if(req.session.user){
+    isFollowing = await Follow.isVisitorFollower(req.profileUser._id, req.visitorId)
+  }
+
+  req.isFollowing = isFollowing
+  next()
+}
 
 exports.signup = function (req, res) {
   //creates a new User object, which then passess the req object
@@ -116,7 +128,8 @@ exports.profilePostsScreen = function(req, res){
     res.render('profile', {
       posts: posts,
       profileUsername: req.profileUser.username,
-      profileAvatar: req.profileUser.avatar
+      profileAvatar: req.profileUser.avatar,
+      isFollowing: req.isFollowing
     })
   }).catch(function(){
     res.render("404")

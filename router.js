@@ -20,7 +20,7 @@ router.post('/login', userController.login)
 router.post('/logout', userController.logout)
 
 //PROFILE RELATED ROUTES
-router.get('/profile/:username', userController.ifUserExists, userController.profilePostsScreen)
+router.get('/profile/:username', userController.ifUserExists, userController.sharedProfileData, userController.profilePostsScreen)
 
 //POSTING RELATED ROUTES
 //userController.isLoggedIn function prevents unauthenticated user from trying to access protected page
