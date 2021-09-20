@@ -11,8 +11,8 @@ This project is a simple social media website.
 It's like Twitter but without the share (retweet) feature to encourage people to write/post original stuffs.  
 
 ## What are the features of this app?
-User registration. The app will automatically create the user profile and grab the avatar from gravatar.com (using your email) if it exists.
-Log-in and Log-out.    
+User registration. The app will automatically create the user profile and grab the avatar from gravatar.com (using your email) if it exists.  
+Log-in and Log-out.  
 Post a content. The author can update and delete any posted content.  
 Any users (when logged in) can search for posts via the search icon from the header.  
 A user can also chat with everyone (logged in users). To access the chat, you have to click the chat icon from the header.  
