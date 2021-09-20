@@ -77,6 +77,13 @@ app.set('view engine', 'ejs')
 //HomePage
 app.use('/', router)
 
+const server = require('http').createServer(app)
+const io = require('socket.io')(server)
+
+io.on('connection', function(){
+    console.log('A new user connected socket-io')
+})
+
 //app.listen(3000)
 //export the app instead of listening on this file, so that it can't be access (db.js)
-module.exports = app
+module.exports = server

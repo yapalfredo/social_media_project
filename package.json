@@ -37,6 +37,7 @@
     "mongoose": "^5.13.9",
     "nodemon": "^2.0.12",
     "sanitize-html": "^2.5.1",
+    "socket.io": "^4.2.0",
     "validator": "^13.6.0",
     "webpack": "^5.53.0",
     "webpack-cli": "^4.8.0"

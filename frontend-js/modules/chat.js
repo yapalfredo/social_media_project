@@ -1,5 +1,6 @@
 export default class Chat {
     constructor(){
+        this.openedFirstTime = false
         this.chatWrapper = document.querySelector("#chat-wrapper")
         this.openIcon = document.querySelector(".header-chat-icon")
         this.injectHTML()
@@ -14,11 +15,20 @@ export default class Chat {
     }
 
     showChat(){
+        if (!this.openedFirstTime) {
+            this.openConnection()
+            this.openedFirstTime = true
+        }
+
         this.chatWrapper.classList.add("chat--visible")
     }
 
     closeChat(){
         this.chatWrapper.classList.remove("chat--visible")
+    }
+
+    openConnection() {
+        this.socket = io()
     }
 
     // Methods
