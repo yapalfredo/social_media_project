@@ -80,10 +80,19 @@ app.use('/', router)
 const server = require('http').createServer(app)
 const io = require('socket.io')(server)
 
+//making the express session data available from with in
+//the context of socket.io
+io.use((socket, next)=>{
+    sessionOptions(socket.request, socket.request.res, next)
+})
+
 io.on('connection', function(socket){
-    socket.on('chatMessageFromBrowser', function(data){
-        io.emit('chatMessageFromServer', {message: data.message})
-    })
+    if (socket.request.session.user) {
+        let user = socket.request.session.user
+        socket.on('chatMessageFromBrowser', function(data){
+            io.emit('chatMessageFromServer', {message: data.message, username: user.username, avatar: user.avatar})
+        })
+    }
 })
 
 //app.listen(3000)
