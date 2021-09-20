@@ -23,6 +23,7 @@ A user can also chat with everyone (logged in users). To access the chat, you ha
 
 ## What's the stack used on this project?
 MongoDB, Express, NodeJS.  
+
 APIs:
 1. express-session
 2. connect-mongo
