@@ -24,7 +24,7 @@ A user can also chat with everyone (logged in users). To access the chat, you ha
 ## What's the stack used on this project?
 MongoDB, Express, NodeJS.  
 
-APIs:
+Libraries and APIs:
 1. express-session
 2. connect-mongo
 3. connect-flash
@@ -33,6 +33,7 @@ APIs:
 6. axios
 7. dompurify
 8. socket.io
+9. webpack
 
 ## What resource(s) did I follow to create this app?
 * [Stack Overflow](https://stackoverflow.com/)  
