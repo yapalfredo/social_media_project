@@ -35,7 +35,7 @@ APIs:
 8. socket.io
 
 ## What resource(s) did I follow to create this app?
-* [StackOverflow](https://stackoverflow.com/)  
+* [Stac kOverflow](https://stackoverflow.com/)  
 * [Brad Schiff's JavaScript Course](https://www.udemy.com/course/learn-javascript-full-stack-from-scratch)
 
 ## SCREENSHOT
