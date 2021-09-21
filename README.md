@@ -11,11 +11,12 @@ This project is a simple social media website.
 It's like Twitter but without the share (retweet) feature to encourage people to write/post original stuffs.  
 
 ## What are the features of this app?
-User registration. The app will automatically create the user profile and grab the avatar from gravatar.com (using your email) if it exists.  
-Log-in and Log-out.  
-Post a content. The author can update and delete any posted content.  
-Any users (when logged in) can search for posts via the search icon from the header.  
-A user can also chat with everyone (logged in users). To access the chat, you have to click the chat icon from the header.  
+* User registration. The app will automatically create the user profile and grab the avatar from gravatar.com (using your email) if it exists.  
+* Log-in and Log-out.  
+* Post a content. The author can update and delete any contents that he/she owns.  
+* Any users (when logged in) can search for posts via the search icon from the header.  
+* A user can also chat with everyone (logged in users). To access the chat, you have to click the chat icon from the header.  
+* The app was built in a Model-View-Controller (MVC) design pattern.  
 
 ## What does this app lack?
 * The user cannot change the username, password, and email after registration.  
@@ -34,8 +35,13 @@ Libraries and APIs:
 7. dompurify
 8. socket.io
 9. webpack
+10. dotenv
+11. bcryptjs
+12. md5
+13. validator
+14. csurf
 
-## What resource(s) did I follow to create this app?
+## What resource(s) did I use to create this app?
 * [Stack Overflow](https://stackoverflow.com/)  
 * [Brad Schiff's JavaScript Course](https://www.udemy.com/course/learn-javascript-full-stack-from-scratch)
 

@@ -17,6 +17,8 @@ const markdown = require('marked')
 //npm install sanitize-html
 //this will make sure that all inserted characters in post are safe
 const sanitizeHTML = require('sanitize-html')
+//npm install csurf
+const csrf = require('csurf')
 const app = express()
 
 
@@ -74,8 +76,29 @@ app.set('views', 'views')
 //second argument is 'ejs' (npm install ejs)
 app.set('view engine', 'ejs')
 
+//csrfToken
+app.use(csrf())
+//csrf middleware making the csrftoken available 
+//to our ejs templates
+app.use(function(req, res, next) {
+    res.locals.csrfToken = req.csrfToken()
+    next()
+  })
+
 //HomePage
 app.use('/', router)
+
+//csrf error handling
+app.use(function(err, req, res, next) {
+    if(err){
+        if(err.code == "EBADCSRFTOKEN") {
+            req.flash('errors', 'Cross-Site Request Forgery Detected')
+            req.session.save(() => res.redirect('/'))
+        } else {
+            res.render('404')
+        }
+    }
+})
 
 const server = require('http').createServer(app)
 const io = require('socket.io')(server)
