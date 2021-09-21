@@ -201,3 +201,7 @@ exports.isUsernameExisting = function(req, res){
   })
 }
 
+exports.isEmailExisting = async function(req, res){
+  let emailBoolean = await User.findByEmail(req.body.email)
+  res.json(emailBoolean)
+}

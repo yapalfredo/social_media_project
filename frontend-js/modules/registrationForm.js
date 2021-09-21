@@ -2,17 +2,27 @@ import axios from "axios"
 
 export default class RegistrationForm {
     constructor() {
+        this.form = document.querySelector("#registration-form")
         this.allFields = document.querySelectorAll("#registration-form .form-control")
         this.insertValidationElements()
         this.username = document.querySelector("#username-register")
         this.username.previousValue = ""
         this.email = document.querySelector("#email-register")
         this.email.previousValue = ""
+        this.password = document.querySelector("#password-register")
+        this.password.previousValue = ""
+        this.username.isUnique = false
+        this.email.isUnique = false
         this.events()
     }
 
     // Events 
     events(){
+        this.form.addEventListener("submit", e => {
+            e.preventDefault()
+            this.formSubmitHandler()
+        })
+
         this.username.addEventListener("keyup", () => {
             this.inputIsNotTheSame(this.username, this.usernameHandler)
         })
@@ -20,9 +30,43 @@ export default class RegistrationForm {
         this.email.addEventListener("keyup", () => {
             this.inputIsNotTheSame(this.email, this.emailHandler)
         })
+
+        this.password.addEventListener("keyup", () => {
+            this.inputIsNotTheSame(this.password, this.pwdHandler)
+        })
+
+        this.username.addEventListener("blur", () => {
+            this.inputIsNotTheSame(this.username, this.usernameHandler)
+        })
+
+        this.email.addEventListener("blur", () => {
+            this.inputIsNotTheSame(this.email, this.emailHandler)
+        })
+
+        this.password.addEventListener("blur", () => {
+            this.inputIsNotTheSame(this.password, this.pwdHandler)
+        })
     }
 
     //Methods
+    formSubmitHandler(){
+        this.usernameImmediately()
+        this.usernameAfterDelay()
+        this.emailAfterDelay()
+        this.passwordImmediately()
+        this.passwordAfterDelay()
+
+        if (
+            this.username.isUnique &&
+            !this.username.errors &&
+            this.email.isUnique &&
+            !this.email.errors &&
+            !this.password.errors
+        ) {
+            this.form.submit()
+        }
+    }
+
     inputIsNotTheSame(element, handler){
         if(element.previousValue != element.value) {
              handler.call(this)
@@ -44,6 +88,13 @@ export default class RegistrationForm {
         this.email.timer = setTimeout(() => this.emailAfterDelay(), 800)
     }
 
+    pwdHandler(){
+        this.password.errors = false
+        this.passwordImmediately()
+        clearTimeout(this.password.timer)
+        this.password.timer = setTimeout(() => this.passwordAfterDelay(), 800)
+    }
+
     usernameImmediately(){
         //regex only accepts alphanumeric
         if (this.username.value != "" && !/^([a-zA-Z0-9]+)$/.test(this.username.value)) {
@@ -55,9 +106,26 @@ export default class RegistrationForm {
         }
 
         if (this.username.value.length > 30){
-            this.showValidationError(this.username, "You can only have 30 characters for username")
+            this.showValidationError(this.username, "You can only have up to 30 characters for username")
         }
 
+    }
+
+    passwordImmediately(){
+        if (this.password.value.length > 50){
+            this.showValidationError(this.password, "You can only have up to 50 characters for password")
+        }
+
+        if (!this.password.errors){
+            this.hideValidationError(this.password)
+        }
+
+    }
+
+    passwordAfterDelay(){
+        if (this.password.value.length < 12){
+            this.showValidationError(this.password, "You must have at least 12 characters for password")
+        }
     }
 
     emailAfterDelay(){
@@ -67,10 +135,10 @@ export default class RegistrationForm {
         } 
 
         if (!this.email.errors){
-         axios.post('/isEmailExisting', {email: this.email.value}).then((response) =>{
+         axios.post('/isEmailExisting', {email: this.email.value}).then(response => {
             if (response.data) {
                 this.email.isUnique = false
-                this.showValidationError("The email address you provided is already registered")
+                this.showValidationError(this.email, "The email address you provided is already registered")
             } else {
                 this.email.isUnique = true
                 this.hideValidationError(this.email)
@@ -94,12 +162,12 @@ export default class RegistrationForm {
     }
 
     usernameAfterDelay(){
-        if (this.username.value.length < 3) {
-            this.showValidationError(this.username, "You must have at least 3 characters for username")
+        if (this.username.value.length < 8) {
+            this.showValidationError(this.username, "You must have at least 8 characters for username")
         }
 
         if (!this.username.errors) {
-            axios.post('/isUsernameExisting', {username: this.username.value}).then((response) => {
+            axios.post('/isUsernameExisting', {username: this.username.value}).then(response => {
                 if (response.data) {
                     this.showValidationError(this.username, "The username you provided is not available")
                     this.username.isUnique = false
