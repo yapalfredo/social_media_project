@@ -36,7 +36,7 @@ APIs:
 
 ## What resource(s) did I follow to create this app?
 * [StackOverflow](https://stackoverflow.com/)  
-* [Brad_Schiff's_JavaScript_Course](https://www.udemy.com/course/learn-javascript-full-stack-from-scratch)
+* [Brad Schiff's JavaScript Course](https://www.udemy.com/course/learn-javascript-full-stack-from-scratch)
 
 ## SCREENSHOT
 
