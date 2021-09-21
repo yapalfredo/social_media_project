@@ -3,7 +3,7 @@ FreedomApp.
 No more short tweets and impersonal “shared” posts that are similar to the late 90’s email forwards. FreedomApp believes that actual writing is the key to a better the world wide web.    
 
 ## What's the purpose of this project?
-Just to be able to practice more of NodeJS and front-end development techniques.  
+Just to be able to practice more of NodeJS and general web development techniques.  
 I believe it's essential to know these stuffs before I can move on to Blockchain Development.  
 
 ## What's this app about?
@@ -17,8 +17,10 @@ It's like Twitter but without the share (retweet) feature to encourage people to
 * Any users (when logged in) can search for posts via the search icon from the header.  
 * A user can also chat with everyone (logged in users). To access the chat, you have to click the chat icon from the header.  
 * The app was built in a Model-View-Controller (MVC) design pattern.  
+* This app also features a Cross-site request forgery (CSRF) protection.  
 
 ## What does this app lack?
+* No front-end framework.  
 * The user cannot change the username, password, and email after registration.  
 * There's no "like" feature.  
 
@@ -46,4 +48,3 @@ Libraries and APIs:
 * [Brad Schiff's JavaScript Course](https://www.udemy.com/course/learn-javascript-full-stack-from-scratch)
 
 ## SCREENSHOT
-
