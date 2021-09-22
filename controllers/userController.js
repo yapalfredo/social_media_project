@@ -216,9 +216,19 @@ exports.apiLogin = function (req, res) {
   user
     .login()
     .then(function () {
-      res.json(jwt.sign({_id: user.data._id}, process.env.JWTSECRET, {expiresIn: '4d'}))
+      res.json(jwt.sign({_id: user.data._id}, process.env.JWTSECRET, {expiresIn: '1d'}))
     })
     .catch(function (e) {
       res.json("Login is incorrect")
     })
 }
+
+exports.apiIsLoggedIn = function(req, res, next) {
+  try{
+    req.apiUser = jwt.verify(req.body.token, process.env.JWTSECRET)
+    next()
+  }catch{
+    res.json("Sorry. That was an invalid token. Please try again.")
+  }
+}
+

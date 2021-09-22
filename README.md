@@ -18,7 +18,7 @@ It's like Twitter but without the share (retweet) feature to encourage people to
 * A user can also chat with everyone (logged in users). To access the chat, you have to click the chat icon from the header.  
 * The app was built in a Model-View-Controller (MVC) design pattern.  
 * This app also features a Cross-site request forgery (CSRF) protection.  
-* Lastly, the app has API capabilities.
+* Lastly, you can communicate (creating a new post) with the app via API.  
 
 ## What does this app lack?
 * No front-end framework.  
@@ -44,6 +44,19 @@ Libraries and APIs:
 13. validator
 14. csurf
 15. jsonwebtoken
+
+## API (jwt)
+* You can use the Postman app for this to try out.  
+* You need to send a post request to https://<yourhost>/api/login  
+* Set your header content type to application/json.  
+* In the body, set the input to raw, create your json object with the properties, username and password.  
+* Then supply your correct username and password to those properties and hit send.  
+* If you did it correctly, you should see a response, containing your generated token. Copy that to your clipboard.  
+* Please note: the generated token is only valid for 24 hours. You'd have to request new one again once it expired.  
+* Now to create a new post via API, you need to send a post request to https://<yourhost>/api/create-post  
+* In the body, create a new json object with the properties: title, body, and token.  
+* Supply your desired title and body values for this new post. Paste in the generated token in the token property value. Hit send.
+* If all is done correctly, you should see a json response, "Congrats! New post created via API"
 
 ## What resource(s) did I use to create this app?
 * [Stack Overflow](https://stackoverflow.com/)  

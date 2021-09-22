@@ -102,3 +102,14 @@ exports.search = function(req, res) {
         res.json([])
     })
 } 
+
+//Creating new post via API
+exports.apiCreatePost = function(req, res){
+    let post = new Post(req.body, req.apiUser._id);
+   
+    post.createPost().then(function(newId){
+        res.json("Congrats! New post created via API")
+    }).catch(function(err){
+        res.json(err)
+    })
+}

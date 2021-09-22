@@ -8,5 +8,6 @@ const postController = require('./controllers/postController')
 const followController = require('./controllers/followController')
 
 apiRouter.post('/login', userController.apiLogin)
+apiRouter.post('/create-post', userController.apiIsLoggedIn, postController.apiCreatePost)
 
 module.exports = apiRouter
