@@ -69,6 +69,9 @@ Libraries and APIs:
 * [Stack Overflow](https://stackoverflow.com/)  
 * [Brad Schiff's JavaScript Course](https://www.udemy.com/course/learn-javascript-full-stack-from-scratch)
 
+## URL
+This app was successfully deployed online via [Heroku](https://yapfreedomapp.herokuapp.com/). Feel free to test it out.  
+
 ## SCREENSHOT
 ![Alt text](/screenshots/screenshot-guest-homepage.JPG?raw=true "Homepage")  
 ![Alt text](/screenshots/screenshot-homepage-dashboard.JPG?raw=true "Homepage Dashboard")  
