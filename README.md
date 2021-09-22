@@ -18,6 +18,7 @@ It's like Twitter but without the share (retweet) feature to encourage people to
 * A user can also chat with everyone (logged in users). To access the chat, you have to click the chat icon from the header.  
 * The app was built in a Model-View-Controller (MVC) design pattern.  
 * This app also features a Cross-site request forgery (CSRF) protection.  
+* Lastly, the app has API capabilities.
 
 ## What does this app lack?
 * No front-end framework.  
@@ -42,6 +43,7 @@ Libraries and APIs:
 12. md5
 13. validator
 14. csurf
+15. jsonwebtoken
 
 ## What resource(s) did I use to create this app?
 * [Stack Overflow](https://stackoverflow.com/)  

@@ -6,6 +6,8 @@ const User = require("../models/User")
 const Post = require("../models/Post")
 //import the Follow model
 const Follow = require("../models/Follow")
+//npm install jsonwebtoken
+const jwt = require('jsonwebtoken')
 
 exports.sharedProfileData = async function(req, res, next){
   let isVisitorsProfile = false
@@ -210,11 +212,11 @@ exports.isEmailExisting = async function(req, res){
 //this controls the API Login
 exports.apiLogin = function (req, res) {
   let user = new User(req.body)
-  
+
   user
     .login()
     .then(function () {
-      res.json("Login is correct")
+      res.json(jwt.sign({_id: user.data._id}, process.env.JWTSECRET, {expiresIn: '4d'}))
     })
     .catch(function (e) {
       res.json("Login is incorrect")
