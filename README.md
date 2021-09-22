@@ -48,3 +48,11 @@ Libraries and APIs:
 * [Brad Schiff's JavaScript Course](https://www.udemy.com/course/learn-javascript-full-stack-from-scratch)
 
 ## SCREENSHOT
+![Alt text](/screenshots/screenshot-guest-homepage.JPG?raw=true "Homepage")  
+![Alt text](/screenshots/screenshot-homepage-dashboard.JPG?raw=true "Homepage Dashboard")  
+![Alt text](/screenshots/screenshot-profile-page.JPG?raw=true "Profile Page")  
+![Alt text](/screenshots/screenshot-view-others-profile?raw=true "Others Profile Page")  
+![Alt text](/screenshots/screenshot-creating-a-post-page.JPG?raw=true "Create A Post Page")  
+![Alt text](/screenshots/screenshot-edit-post?raw=true "Edit A Post Page")  
+![Alt text](/screenshots/screenshot-searchbar?raw=true "Search bar")  
+![Alt text](/screenshots/screenshot-chat?raw=true "Chat window")  
