@@ -22,7 +22,9 @@ It's like Twitter but without the share (retweet) feature to encourage people to
 
 ## What does this app lack?
 * No front-end framework.  
+* No email confirmation required after registration.  
 * The user cannot change the username, password, and email after registration.  
+* No mail notifications for new posts and new followers.  
 * There's no "like" feature.  
 
 ## What's the stack used on this project?
