@@ -21,6 +21,12 @@ const sanitizeHTML = require('sanitize-html')
 const csrf = require('csurf')
 const app = express()
 
+//This tells express to add submitted data, from html form, to the 'req' object,
+//So that it can be assessed from req.body
+app.use(express.urlencoded({extended: false}))
+app.use(express.json())
+
+app.use('/api', require('./router-api'))
 
 //settings to enable sessions
 let sessionOptions = session({
@@ -59,10 +65,6 @@ app.use(function(req, res, next){
 //Router should only have list of routes
 const router = require('./router')
 
-//This tells express to add submitted data, from html form, to the 'req' object,
-//So that it can be assessed from req.body
-app.use(express.urlencoded({extended: false}))
-app.use(express.json())
 
 //This will make public folder accessible without typing the folder name
 //for paths

@@ -205,3 +205,18 @@ exports.isEmailExisting = async function(req, res){
   let emailBoolean = await User.findByEmail(req.body.email)
   res.json(emailBoolean)
 }
+
+
+//this controls the API Login
+exports.apiLogin = function (req, res) {
+  let user = new User(req.body)
+  
+  user
+    .login()
+    .then(function () {
+      res.json("Login is correct")
+    })
+    .catch(function (e) {
+      res.json("Login is incorrect")
+    })
+}
