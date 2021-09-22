@@ -54,5 +54,5 @@ Libraries and APIs:
 ![Alt text](/screenshots/screenshot-view-others-profile.JPG?raw=true "Others Profile Page")  
 ![Alt text](/screenshots/screenshot-creating-a-post-page.JPG?raw=true "Create A Post Page")  
 ![Alt text](/screenshots/screenshot-edit-post.JPG?raw=true "Edit A Post Page")  
-![Alt text](/screenshots/screenshot-searchbarJPG?raw=true "Search bar")  
-![Alt text](/screenshots/screenshot-chatJPG?raw=true "Chat window")  
+![Alt text](/screenshots/screenshot-searchbar.JPG?raw=true "Search bar")  
+![Alt text](/screenshots/screenshot-chat.JPG?raw=true "Chat window")  
