@@ -210,6 +210,7 @@ exports.isEmailExisting = async function(req, res){
 
 
 //this controls the API Login
+//Will generate the jwt token if the login is successful
 exports.apiLogin = function (req, res) {
   let user = new User(req.body)
 
@@ -223,6 +224,7 @@ exports.apiLogin = function (req, res) {
     })
 }
 
+//checks if api token is valid
 exports.apiIsLoggedIn = function(req, res, next) {
   try{
     req.apiUser = jwt.verify(req.body.token, process.env.JWTSECRET)
@@ -232,3 +234,13 @@ exports.apiIsLoggedIn = function(req, res, next) {
   }
 }
 
+//fetch posts via api
+exports.apiGetPostsByUsername = async function(req, res) {
+  try {
+    let authorDoc = await User.findByUsername(req.params.username)
+    let posts = await Post.findByAuthorById(authorDoc._id)
+    res.json(posts)
+  } catch {
+    res.json("Sorry! That was an invalid user.")
+  }
+}

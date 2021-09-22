@@ -113,3 +113,12 @@ exports.apiCreatePost = function(req, res){
         res.json(err)
     })
 }
+
+//Deleting a post via API
+exports.apiDeletePost = function(req, res){
+    Post.delete(req.params.id, req.apiUser._id).then(() => {
+        res.json("Post deletion successful!")
+    }).catch(() =>{
+        res.json("You do not have permission to delete that post")
+    })
+}
